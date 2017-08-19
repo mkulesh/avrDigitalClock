@@ -69,13 +69,7 @@ struct tm
  */
 enum WEEK_DAYS
 {
-    SUNDAY,
-    MONDAY,
-    TUESDAY,
-    WEDNESDAY,
-    THURSDAY,
-    FRIDAY,
-    SATURDAY
+    SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY
 };
 
 /**
@@ -83,18 +77,7 @@ enum WEEK_DAYS
  */
 enum MONTHS
 {
-    JANUARY,
-    FEBRUARY,
-    MARCH,
-    APRIL,
-    MAY,
-    JUNE,
-    JULY,
-    AUGUST,
-    SEPTEMBER,
-    OCTOBER,
-    NOVEMBER,
-    DECEMBER
+    JANUARY, FEBRUARY, MARCH, APRIL, MAY, JUNE, JULY, AUGUST, SEPTEMBER, OCTOBER, NOVEMBER, DECEMBER
 };
 
 /**
@@ -103,7 +86,7 @@ enum MONTHS
  * Uses the value pointed by timer to fill a tm structure with the values that represent the corresponding time,
  * expressed as a UTC time (i.e., the time at the GMT timezone).
  */
-void gmtime (time_t timer, struct tm & timeptr);
+void gmtime(time_t timer, struct tm & timeptr);
 
 /**
  * @brief Convert tm structure to time_t
@@ -120,7 +103,7 @@ void gmtime (time_t timer, struct tm & timeptr);
  * off-range or -in the case of tm_wday and tm_yday- if they have values that do not match the date
  * described by the other members.
  */
-time_t mktime (struct tm & timeptr);
+time_t mktime(struct tm & timeptr);
 
 } // end of namespace AvrPlusPlus
 

@@ -22,66 +22,67 @@
 #include <util/delay.h>
 #include <avr/cpufunc.h>
 
-namespace AvrPlusPlus {
-namespace Devices {
-		
-Led::Led (Name name, unsigned char pinNr, ConnectionType _connectionType, bool isTurned /*= false*/):
-	IOPin(name, pinNr, OUTPUT),
-	connectionType(_connectionType)
+namespace AvrPlusPlus
 {
-	if (isTurned)
-	{
-		turnOn();
-	}
+namespace Devices
+{
+
+Led::Led(Name name, unsigned char pinNr, ConnectionType _connectionType, bool isTurned /*= false*/) :
+        IOPin(name, pinNr, OUTPUT), 
+        connectionType(_connectionType)
+{
+    if (isTurned)
+    {
+        turnOn();
+    }
 }
 
-void Led::turnOn ()
+void Led::turnOn()
 {
-	(connectionType == Led::ANODE)? setHigh() : setLow();
+    (connectionType == Led::ANODE) ? setHigh() : setLow();
 }
 
-void Led::turnOff ()
+void Led::turnOff()
 {
-	(connectionType == Led::ANODE)? setLow() : setHigh();
+    (connectionType == Led::ANODE) ? setLow() : setHigh();
 }
 
-bool Led::isTurned () const
+bool Led::isTurned() const
 {
-	return (connectionType == Led::ANODE)? getBit() : !getBit();
+    return (connectionType == Led::ANODE) ? getBit() : !getBit();
 }
 
-void Led::toggle ()
+void Led::toggle()
 {
-	if (isTurned())
-	{
-		turnOff();
-	}
-	else
-	{
-		turnOn();
-	}
+    if (isTurned())
+    {
+        turnOff();
+    }
+    else
+    {
+        turnOn();
+    }
 }
 
-void Led::pulse (unsigned int count, unsigned int msOn, unsigned int msOff)
+void Led::pulse(unsigned int count, unsigned int msOn, unsigned int msOff)
 {
-	unsigned d;
-	for (unsigned int i = 0; i < count; ++i)
-	{
-		turnOn();
-		d = msOn;
-		while (d--) 
-		{
-			_delay_us(1000);  // one millisecond
-		}
-		turnOff();
-		d = msOff;
-		while (d--) 
-		{
-			_delay_us(1000);  // one millisecond
-		}
-	}
+    unsigned d;
+    for (unsigned int i = 0; i < count; ++i)
+    {
+        turnOn();
+        d = msOn;
+        while (d--)
+        {
+            _delay_us(1000);  // one millisecond
+        }
+        turnOff();
+        d = msOff;
+        while (d--)
+        {
+            _delay_us(1000);  // one millisecond
+        }
+    }
 }
-
 
 } // end of namespace Devices
 } // end of namespace AvrPlusPlus

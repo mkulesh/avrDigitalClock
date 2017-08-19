@@ -22,27 +22,33 @@
 
 #include "../AvrPlusPlus.h"
 
-namespace AvrPlusPlus {
-namespace Devices {
+namespace AvrPlusPlus
+{
+namespace Devices
+{
 
 /** 
  * @brief Class describing a button connected to a pin
  */
-class Button : IOPin
+class Button: IOPin
 {
 private:
 
     volatile const RealTimeClock * rtc;
-	volatile time_ms pressDelay, longPressDelay, pressTime;
-	volatile long occurred;
+    volatile time_ms pressDelay, longPressDelay, pressTime;
+    volatile long occurred;
 
 public:
 
-	Button (Name name, unsigned char pinNr, const RealTimeClock * _rtc, time_ms _pressDelay = 50, time_ms _longPressDelay = 1500);
-	void resetTime ();
-	bool isPressed ();
-	bool isLongPressed ();
-	inline void setProcessed () { ++occurred; };
+    Button(Name name, unsigned char pinNr, const RealTimeClock * _rtc, time_ms _pressDelay = 50,
+            time_ms _longPressDelay = 1500);
+    void resetTime();
+    bool isPressed();
+    bool isLongPressed();
+    inline void setProcessed()
+    {
+        ++occurred;
+    };
 };
 
 } // end of namespace Devices

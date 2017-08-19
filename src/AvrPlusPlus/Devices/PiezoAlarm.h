@@ -22,37 +22,35 @@
 
 #include "../AvrPlusPlus.h"
 
-namespace AvrPlusPlus {
-namespace Devices {
+namespace AvrPlusPlus
+{
+namespace Devices
+{
 
 /** 
  * @brief Class implementing non-blocking alarm sound on piezo element
  */
-class PiezoAlarm : public IOPin
+class PiezoAlarm: public IOPin
 {
 private:
-	enum State
-	{
-		OFF,
-	    ON1,
-		PAUSE1,
-	    ON2,
-	    PAUSE2,
-	};
+    enum State
+    {
+        OFF, ON1, PAUSE1, ON2, PAUSE2,
+    };
     volatile const RealTimeClock * rtc;
-	volatile State state;
-	volatile time_ms startTime, stateTime;
-	volatile unsigned char maxNumber, number;
-	
-	static const duration_ms onDuratin = 75L;
-	static const duration_ms pause1Duratin = 100L;
-	static const duration_ms pause2Duratin = 300L;
+    volatile State state;
+    volatile time_ms startTime, stateTime;
+    volatile unsigned char maxNumber, number;
+
+    static const duration_ms onDuratin = 75L;
+    static const duration_ms pause1Duratin = 100L;
+    static const duration_ms pause2Duratin = 300L;
 public:
-	PiezoAlarm (Name name, unsigned char pinNr, const RealTimeClock * _rtc);
-	void resetTime ();
-	void start (unsigned char _maxNumber);
-	void periodic ();
-	bool finish ();
+    PiezoAlarm(Name name, unsigned char pinNr, const RealTimeClock * _rtc);
+    void resetTime();
+    void start(unsigned char _maxNumber);
+    void periodic();
+    bool finish();
 };
 
 }

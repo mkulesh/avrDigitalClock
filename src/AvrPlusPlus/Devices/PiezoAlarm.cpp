@@ -20,98 +20,101 @@
 #include "PiezoAlarm.h"
 #include <util/delay.h>
 
-namespace AvrPlusPlus {
-namespace Devices {
-	
-PiezoAlarm::PiezoAlarm (Name name, unsigned char pinNr, const RealTimeClock * _rtc):
-	IOPin(name, pinNr, OUTPUT),
-	rtc(_rtc),
-	state(OFF),
-	startTime(INFINITY_TIME),
-	stateTime(INFINITY_TIME),
-	number(0)
+namespace AvrPlusPlus
 {
-	// empty
+namespace Devices
+{
+
+PiezoAlarm::PiezoAlarm(Name name, unsigned char pinNr, const RealTimeClock * _rtc) :
+        IOPin(name, pinNr, OUTPUT), 
+        rtc(_rtc), 
+        state(OFF), 
+        startTime(INFINITY_TIME), 
+        stateTime(INFINITY_TIME), 
+        number(0)
+{
+    // empty
 }
 
-void PiezoAlarm::resetTime ()
+void PiezoAlarm::resetTime()
 {
-	startTime = INFINITY_TIME;
+    startTime = INFINITY_TIME;
 }
 
-void PiezoAlarm::start (unsigned char _maxNumber)
+void PiezoAlarm::start(unsigned char _maxNumber)
 {
-	if (state != OFF)
-	{
-		return;
-	}
-	if (startTime != INFINITY_TIME && rtc->timeMillisec < startTime + 60000)
-	{
-		return;
-	}
-	maxNumber = _maxNumber;
-	state = ON1;
-	startTime = rtc->timeMillisec;
-	stateTime = startTime;
-	number = 0;
-	setHigh();
+    if (state != OFF)
+    {
+        return;
+    }
+    if (startTime != INFINITY_TIME && rtc->timeMillisec < startTime + 60000)
+    {
+        return;
+    }
+    maxNumber = _maxNumber;
+    state = ON1;
+    startTime = rtc->timeMillisec;
+    stateTime = startTime;
+    number = 0;
+    setHigh();
 }
 
-void PiezoAlarm::periodic ()
+void PiezoAlarm::periodic()
 {
-	switch (state)
-	{
-		case OFF: return;
-		case ON1:
-			if (rtc->timeMillisec > (stateTime + onDuratin))
-			{
-				state = PAUSE1;
-				stateTime = rtc->timeMillisec;
-				setLow();
-			}
-			break;
-		case PAUSE1:
-			if (rtc->timeMillisec > (stateTime + pause1Duratin))
-			{
-				state = ON2;
-				stateTime = rtc->timeMillisec;
-				setHigh();
-			}
-			break;
-		case ON2:
-			if (rtc->timeMillisec > (stateTime + onDuratin))
-			{
-				state = PAUSE2;
-				stateTime = rtc->timeMillisec;
-				setLow();
-			}
-			break;
-		case PAUSE2:
-			if (rtc->timeMillisec > (stateTime + pause2Duratin))
-			{
-				if (++number >= maxNumber)
-				{
-					finish();
-				}
-				else
-				{
-					state = ON1;
-					stateTime = rtc->timeMillisec;
-					setHigh();
-				}
-			}
-			break;
-	}
+    switch (state)
+    {
+    case OFF:
+        return;
+    case ON1:
+        if (rtc->timeMillisec > (stateTime + onDuratin))
+        {
+            state = PAUSE1;
+            stateTime = rtc->timeMillisec;
+            setLow();
+        }
+        break;
+    case PAUSE1:
+        if (rtc->timeMillisec > (stateTime + pause1Duratin))
+        {
+            state = ON2;
+            stateTime = rtc->timeMillisec;
+            setHigh();
+        }
+        break;
+    case ON2:
+        if (rtc->timeMillisec > (stateTime + onDuratin))
+        {
+            state = PAUSE2;
+            stateTime = rtc->timeMillisec;
+            setLow();
+        }
+        break;
+    case PAUSE2:
+        if (rtc->timeMillisec > (stateTime + pause2Duratin))
+        {
+            if (++number >= maxNumber)
+            {
+                finish();
+            }
+            else
+            {
+                state = ON1;
+                stateTime = rtc->timeMillisec;
+                setHigh();
+            }
+        }
+        break;
+    }
 }
 
-bool PiezoAlarm::finish ()
+bool PiezoAlarm::finish()
 {
-	bool retValue = state != OFF;
-	state = OFF;
-	number = 0;
-	setLow();
-	return retValue;
+    bool retValue = state != OFF;
+    state = OFF;
+    number = 0;
+    setLow();
+    return retValue;
 }
-	
+
 }
 }

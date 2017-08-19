@@ -27,37 +27,37 @@ DigitalClock * clockPtr;
 
 int main(void)
 {
-	System::disableJTAG();
-	System::setClockDivisionFactor(System::PRE_1);
-	System::setVoltage(3.32);
-	
-	DigitalClock dc(&rtc);
-	clockPtr = &dc;
-	dc.init();
-	rtc.startClock();
-	
+    System::disableJTAG();
+    System::setClockDivisionFactor(System::PRE_1);
+    System::setVoltage(3.32);
+
+    DigitalClock dc(&rtc);
+    clockPtr = &dc;
+    dc.init();
+    rtc.startClock();
+
     do
     {
-		dc.periodic();
+        dc.periodic();
     }
-	while(1);
+    while (1);
     return 0;
 }
 
 // overflow interrupt
 ISR(TIMER2_OVF_vect)
 {
-	rtc.onInterrupOverflow();
+    rtc.onInterrupOverflow();
 }
 
 // compare output interrupt
 ISR(TIMER1_COMPA_vect)
 {
-	rtc.onInterrupCompareMatch();
+    rtc.onInterrupCompareMatch();
 }
 
 // analog comparator interrupt
 ISR(ANALOG_COMP_vect)
 {
-	clockPtr->onComparatorInterrupt();
+    clockPtr->onComparatorInterrupt();
 }

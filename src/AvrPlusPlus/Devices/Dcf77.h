@@ -22,51 +22,56 @@
 
 #include "../AvrPlusPlus.h"
 
-namespace AvrPlusPlus {
-namespace Devices {
-
+namespace AvrPlusPlus
+{
+namespace Devices
+{
 
 class Dcf77Handler
 {
 public:
-	virtual void onDcfLog (const char * str) = 0;
-	virtual void onTimeReceived (int min, int hour, int day, int month, int year) = 0;
-	virtual void onBitReceived () = 0;
-	virtual void onBitFailed () = 0;
+    virtual void onDcfLog(const char * str) = 0;
+    virtual void onTimeReceived(int min, int hour, int day, int month, int year) = 0;
+    virtual void onBitReceived() = 0;
+    virtual void onBitFailed() = 0;
 };
 
-
-class Dcf77 : public AnalogComparator
+class Dcf77: public AnalogComparator
 {
-private:	
-
-	static const unsigned char BITS_NUMBER = 60;
-
-	Dcf77Handler * handler;
-	volatile RealTimeClock * clock;
-	volatile int currBit;
-	volatile bool streaming;
-	volatile time_ms lastInterruptTime;
-	tm dayTime;
-	
-	unsigned char bits[BITS_NUMBER];
-	char outString[60];
-	
-	
-public:
-
-	Dcf77 (volatile RealTimeClock * aClock, IOPort::Name pinAin0Name, unsigned char pinAin0Nr, IOPort::Name pinAin1Name, unsigned char pinAin1Nr);
-	void setHandler(Dcf77Handler * aHandler);
-	inline tm & getDayTime () { return dayTime; };
-	inline bool isStreaming() { return streaming; };
-	virtual void onInterrupt ();
-	virtual void turnOn ();
-	
 private:
 
-	bool decodeTime ();
-};
+    static const unsigned char BITS_NUMBER = 60;
 
+    Dcf77Handler * handler;
+    volatile RealTimeClock * clock;
+    volatile int currBit;
+    volatile bool streaming;
+    volatile time_ms lastInterruptTime;
+    tm dayTime;
+
+    unsigned char bits[BITS_NUMBER];
+    char outString[60];
+
+public:
+
+    Dcf77(volatile RealTimeClock * aClock, IOPort::Name pinAin0Name, unsigned char pinAin0Nr, IOPort::Name pinAin1Name,
+            unsigned char pinAin1Nr);
+    void setHandler(Dcf77Handler * aHandler);
+    inline tm & getDayTime()
+    {
+        return dayTime;
+    };
+    inline bool isStreaming()
+    {
+        return streaming;
+    };
+    virtual void onInterrupt();
+    virtual void turnOn();
+
+private:
+
+    bool decodeTime();
+};
 
 } // end of namespace Devices
 } // end of namespace AvrPlusPlus

@@ -22,20 +22,25 @@
 
 #include "../AvrPlusPlus.h"
 
-namespace AvrPlusPlus {
-namespace Devices {
+namespace AvrPlusPlus
+{
+namespace Devices
+{
 
-class Dac_MCP4901 : public SpiDevice
+class Dac_MCP4901: public SpiDevice
 {
 public:
-	Dac_MCP4901 (Name spiPortName, unsigned char pinMosiNr, unsigned char pinSckNr, Name devicePortName, unsigned char pinCsNr);
-	void putValue (unsigned char percent);
-	void inline setOutputGain (bool flag) { outputGain = flag; };
-	
-private:
-	bool outputGain;
-};
+    Dac_MCP4901(Name spiPortName, unsigned char pinMosiNr, unsigned char pinSckNr, Name devicePortName,
+            unsigned char pinCsNr);
+    void putValue(unsigned char percent);
+    void inline setOutputGain(bool flag)
+    {
+        outputGain = flag;
+    };
 
+private:
+    bool outputGain;
+};
 
 }
 }

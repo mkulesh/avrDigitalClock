@@ -22,9 +22,11 @@
 
 #include "../AvrPlusPlus.h"
 
-namespace AvrPlusPlus {
-namespace Devices {
-	
+namespace AvrPlusPlus
+{
+namespace Devices
+{
+
 /** 
  * @brief Driver for the DOGM162 LCD series by Electonic Assembly with ST7036 controller.
  *        This driver uses 4 bit connection method.
@@ -33,80 +35,92 @@ class Lcd_DOGM162
 {
 protected:
 
-	IOPin pinE, pinRW, pinRS;
-	IOPin pinD4, pinD5, pinD6, pinD7;
+    IOPin pinE, pinRW, pinRS;
+    IOPin pinD4, pinD5, pinD6, pinD7;
 
-	void busyCheck (void);
-	void transmitBits (char data);
-	void writeData (bool isData, char data);
-	void writeDataWithoutCheck (bool isData, char data);
+    void busyCheck(void);
+    void transmitBits(char data);
+    void writeData(bool isData, char data);
+    void writeDataWithoutCheck(bool isData, char data);
 
 public:
 
-	/** 
-	 * @brief Default constructor: Initialize LCD module
-	 */ 
-    Lcd_DOGM162 (const unsigned char * controlPins, const unsigned char * dataPins);
-	
-	/** 
-	 * @brief Clear display, go to first char in first line
-	 */ 
-	inline void clear (void) { writeData(false, 0x01); };
+    /** 
+     * @brief Default constructor: Initialize LCD module
+     */
+    Lcd_DOGM162(const unsigned char * controlPins, const unsigned char * dataPins);
 
-	/** 
-	 * @brief Go to position
-	 */ 
-	void gotoXY (char x, char y);
-	
-	/** 
-	 * @brief Write single character to display
-	 */ 
-	inline void putChar (char c) { writeData(true, c); };
-	
-	/** 
-	 * @brief Write string to display
-	 */ 
-	void putString (char x, char y, const char *);
+    /** 
+     * @brief Clear display, go to first char in first line
+     */
+    inline void clear(void)
+    {
+        writeData(false, 0x01);
+    };
+
+    /** 
+     * @brief Go to position
+     */
+    void gotoXY(char x, char y);
+
+    /** 
+     * @brief Write single character to display
+     */
+    inline void putChar(char c)
+    {
+        writeData(true, c);
+    };
+
+    /** 
+     * @brief Write string to display
+     */
+    void putString(char x, char y, const char *);
 };
-
 
 /** 
  * @brief Driver for the DOGM162 LCD series by Electonic Assembly with ST7036 controller.
  *        This driver uses SPI connection method.
  */
-class Lcd_DOGM162_SPI : public SpiDevice
+class Lcd_DOGM162_SPI: public SpiDevice
 {
 private:
-	
-	IOPin pinRs;
-	void writeData (bool isData, char data);
-	
-public:
-	
-	/** 
-	 * @brief Default constructor: Initialize LCD module
-	 */ 
-	Lcd_DOGM162_SPI(IOPort::Name spiPortName, unsigned char pinMosiNr, unsigned char pinSckNr, IOPort::Name devicePortName, unsigned char pinCsNr, unsigned char pinRsNr);
-	
-	/** 
-	 * @brief Clear display, go to first char in first line
-	 */ 
-	inline void clear (void) { writeData(false, 0x01); };
 
-	/** 
-	 * @brief Go to position
-	 */ 
-	void gotoXY (char x, char y);
-	
-	/** 
-	 * @brief Write single character to display
-	 */ 
-	inline void putChar (char c) { writeData(true, c); };
-	
-	/** 
-	 * @brief Write string to display
-	 */ 
-	void putString (char x, char y, const char *);
+    IOPin pinRs;
+    void writeData(bool isData, char data);
+
+public:
+
+    /** 
+     * @brief Default constructor: Initialize LCD module
+     */
+    Lcd_DOGM162_SPI(IOPort::Name spiPortName, unsigned char pinMosiNr, unsigned char pinSckNr,
+            IOPort::Name devicePortName, unsigned char pinCsNr, unsigned char pinRsNr);
+
+    /** 
+     * @brief Clear display, go to first char in first line
+     */
+    inline void clear(void)
+    {
+        writeData(false, 0x01);
+    };
+
+    /** 
+     * @brief Go to position
+     */
+    void gotoXY(char x, char y);
+
+    /** 
+     * @brief Write single character to display
+     */
+    inline void putChar(char c)
+    {
+        writeData(true, c);
+    };
+
+    /** 
+     * @brief Write string to display
+     */
+    void putString(char x, char y, const char *);
 };
 
 } // end of namespace Devices

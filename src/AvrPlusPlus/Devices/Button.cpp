@@ -19,57 +19,59 @@
 
 #include "Button.h"
 
-namespace AvrPlusPlus {
-namespace Devices {
-
-Button::Button (Name name, unsigned char pinNr, const RealTimeClock * _rtc, time_ms _pressDelay/* = 30*/, time_ms _longPressDelay/* = 1000*/):
-	IOPin(name, pinNr, INPUT),
-	rtc(_rtc),
-	pressDelay(_pressDelay),
-	longPressDelay(_longPressDelay),
-	pressTime(INFINITY_TIME),
-	occurred(0)
+namespace AvrPlusPlus
 {
-	setPullUp(true);
+namespace Devices
+{
+
+Button::Button(Name name, unsigned char pinNr, const RealTimeClock * _rtc, time_ms _pressDelay/* = 30*/, time_ms _longPressDelay/* = 1000*/) :
+        IOPin(name, pinNr, INPUT), 
+        rtc(_rtc), 
+        pressDelay(_pressDelay), 
+        longPressDelay(_longPressDelay), 
+        pressTime(INFINITY_TIME), 
+        occurred(0)
+{
+    setPullUp(true);
 }
 
-void Button::resetTime ()
+void Button::resetTime()
 {
-	pressTime = rtc->timeMillisec;
+    pressTime = rtc->timeMillisec;
 };
 
-bool Button::isPressed ()
+bool Button::isPressed()
 {
-	bool val = !readInput();
-	if (!val)
-	{
-		pressTime = INFINITY_TIME;
-		occurred = 0;
-		return false;
-	}
-	if (occurred > 0)
-	{
-		return false;
-	}
-	if (pressTime == INFINITY_TIME)
-	{
-		pressTime = rtc->timeMillisec;
-	}
-	return (rtc->timeMillisec >= pressTime && rtc->timeMillisec - pressTime >= pressDelay);
+    bool val = !readInput();
+    if (!val)
+    {
+        pressTime = INFINITY_TIME;
+        occurred = 0;
+        return false;
+    }
+    if (occurred > 0)
+    {
+        return false;
+    }
+    if (pressTime == INFINITY_TIME)
+    {
+        pressTime = rtc->timeMillisec;
+    }
+    return (rtc->timeMillisec >= pressTime && rtc->timeMillisec - pressTime >= pressDelay);
 }
 
-bool Button::isLongPressed ()
+bool Button::isLongPressed()
 {
-	if (pressTime == INFINITY_TIME)
-	{
-		return false;
-	}
-	if (occurred < 2)
-	{
-		return (rtc->timeMillisec > pressTime && rtc->timeMillisec - pressTime >= longPressDelay);
-	}
-	return (rtc->timeMillisec > pressTime && rtc->timeMillisec - pressTime >= longPressDelay/6);
+    if (pressTime == INFINITY_TIME)
+    {
+        return false;
+    }
+    if (occurred < 2)
+    {
+        return (rtc->timeMillisec > pressTime && rtc->timeMillisec - pressTime >= longPressDelay);
+    }
+    return (rtc->timeMillisec > pressTime && rtc->timeMillisec - pressTime >= longPressDelay / 6);
 }
-	
+
 }
 }

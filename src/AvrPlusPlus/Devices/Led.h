@@ -22,36 +22,37 @@
 
 #include "../AvrPlusPlus.h"
 
-namespace AvrPlusPlus {
-namespace Devices {
-	
+namespace AvrPlusPlus
+{
+namespace Devices
+{
+
 /** 
  * @brief Class describing a LED element connecting to a pin
  */
-class Led : public IOPin
+class Led: public IOPin
 {
 public:
 
-	enum ConnectionType
-	{
-		ANODE = 0,
-		CATHODE = 1
-	};
+    enum ConnectionType
+    {
+        ANODE = 0, CATHODE = 1
+    };
 
 protected:
 
-	volatile ConnectionType connectionType;
-	
+    volatile ConnectionType connectionType;
+
 public:
 
-    Led (Name name, unsigned char pinNr, ConnectionType _connectionType, bool isTurned = false);
-	void turnOn ();
-	void turnOff ();
-	bool isTurned () const;
-	void toggle ();
-	void pulse (unsigned int count, unsigned int msOn, unsigned int msOff);
+    Led(Name name, unsigned char pinNr, ConnectionType _connectionType, bool isTurned = false);
+    void turnOn();
+    void turnOff();
+    bool isTurned() const;
+    void toggle();
+    void pulse(unsigned int count, unsigned int msOn, unsigned int msOff);
 };
-	
+
 } // end of namespace Devices
 } // end of namespace AvrPlusPlus
 

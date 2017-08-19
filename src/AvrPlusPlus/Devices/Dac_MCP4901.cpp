@@ -19,34 +19,36 @@
 
 #include "Dac_MCP4901.h"
 
-namespace AvrPlusPlus {
-namespace Devices {
-	
-Dac_MCP4901::Dac_MCP4901 (Name spiPortName, unsigned char pinMosiNr, unsigned char pinSckNr, Name devicePortName, unsigned char pinCsNr):
-	SpiDevice(spiPortName, pinMosiNr, pinSckNr, devicePortName, pinCsNr),
-	outputGain(false)
+namespace AvrPlusPlus
 {
-	// empty
+namespace Devices
+{
+
+Dac_MCP4901::Dac_MCP4901(Name spiPortName, unsigned char pinMosiNr, unsigned char pinSckNr, Name devicePortName, unsigned char pinCsNr) :
+        SpiDevice(spiPortName, pinMosiNr, pinSckNr, devicePortName, pinCsNr), 
+        outputGain(false)
+{
+    // empty
 }
 
-void Dac_MCP4901::putValue (unsigned char percent)
+void Dac_MCP4901::putValue(unsigned char percent)
 {
-	unsigned int packet = 0;
-	if (percent == 0)
-	{
-		packet |= 0 << 12;          //De-active mode operation
-	}
-	else
-	{
-		unsigned char volt_digits = ((int)0xFF * (int)percent)/100;
-		packet = volt_digits << 4;  //shift voltage setting digits
-		packet |= 1 << 12;          //Active mode operation
-		packet |= !outputGain << 13; //Set output gain
-	}
-	startTransfer();
-	putInt(packet);
-	finishTransfer();
+    unsigned int packet = 0;
+    if (percent == 0)
+    {
+        packet |= 0 << 12;          //De-active mode operation
+    }
+    else
+    {
+        unsigned char volt_digits = ((int) 0xFF * (int) percent) / 100;
+        packet = volt_digits << 4;  //shift voltage setting digits
+        packet |= 1 << 12;          //Active mode operation
+        packet |= !outputGain << 13; //Set output gain
+    }
+    startTransfer();
+    putInt(packet);
+    finishTransfer();
 }
-	
+
 }
 }
