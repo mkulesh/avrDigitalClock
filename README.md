@@ -4,15 +4,20 @@ This repository provides hardware layout and firmware for a digital clock based 
 
 This clock consist of two boards:
 - the first display board contains four 0.8 inch. single digit numerical displays and one 2x16 chars LCD-display.
-![display board](https://github.com/mkulesh/avrDigitalClock/blob/master/images/display_board2.jpg =600x450)
+
+![display board](https://github.com/mkulesh/avrDigitalClock/blob/master/images/display_board2.jpg)
+
 - the second board contains ATmega644 MCU with necessary periphery: voltage regulator, light sensor, temperature sensor, buttons, programming connector, 32.7680kHz crystal, DCF77 receiver with ferrite core.
-![mcu board](https://github.com/mkulesh/avrDigitalClock/blob/master/images/mcu_board1.jpg =600x450)
+
+![mcu board](https://github.com/mkulesh/avrDigitalClock/blob/master/images/mcu_board1.jpg)
 
 The firmware is written in C++ in Atmel Studio 6.0 (see directory src). The main idea here is to collect low-level routines in an object-oriented library and develop the main logic of the application using objects that implements different hardware elements.
 
 PCB are developed in Eagle CAD (see directory pcb):
-![mcu board layout](https://github.com/mkulesh/avrDigitalClock/blob/master/images/mcu_board0.jpg =600x450)
-![display board layout](https://github.com/mkulesh/avrDigitalClock/blob/master/images/display_board0.jpg =600x450)
+
+![mcu board layout](https://github.com/mkulesh/avrDigitalClock/blob/master/images/mcu_board0.png)
+
+![display board layout](https://github.com/mkulesh/avrDigitalClock/blob/master/images/display_board0.png)
 
 ## List of components
 - DC connector: 1x DC-8N
