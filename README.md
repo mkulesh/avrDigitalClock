@@ -1,11 +1,30 @@
+<<<<<<< HEAD
+[![License](https://img.shields.io/badge/license-GNU_GPLv3-orange.svg)](https://github.com/mkulesh/avrDigitalClock/blob/master/LICENSE)
+
+# <img src="https://github.com/mkulesh/avrDigitalClock/blob/master/images/atmega644.jpg" align="center" height="48" width="48"> "A digital clock based on ATmega644 MCU"
+
+This repository provides hardware layout and firmware for a digital clock based on ATmega644 MCU
+![In operation](https://github.com/mkulesh/avrDigitalClock/blob/master/images/in_operation.jpg)
+=======
 # <img src="https://github.com/mkulesh/avrDigitalClock/blob/raw/images/atmega644.jpg" align="center" height="48" width="48"> "A digital clock based on ATmega644 MCU"
 
 This repository provides hardware layout and firmware for a digital clock based on ATmega644 MCU
 ![In operation](https://github.com/mkulesh/avrDigitalClock/blob/raw/images/in_operation.jpg)
+>>>>>>> 39b4fb50a0daddd45c954b52c8a6b69c98ebddfc
 
 ## Hardware design
 This clock consist of two boards:
 - the first display board contains four 0.8 inch. single digit numerical displays and one 2x16 chars LCD-display.
+<<<<<<< HEAD
+![Display board](https://github.com/mkulesh/avrDigitalClock/blob/master/images/display_board2.jpg)
+
+- the second board contains ATmega644 MCU with necessary periphery: voltage regulator, light sensor, temperature sensor, buttons, programming connector, 32.7680kHz crystal, DCF77 receiver with ferrite core.
+![Mcu board](https://github.com/mkulesh/avrDigitalClock/blob/master/images/mcu_board1.jpg)
+
+PCB are developed in Eagle CAD (see directory pcb):
+![Mcu board layout](https://github.com/mkulesh/avrDigitalClock/blob/master/images/mcu_board0.png)
+![Display board layout](https://github.com/mkulesh/avrDigitalClock/blob/master/images/display_board0.png)
+=======
 ![Display board](https://github.com/mkulesh/avrDigitalClock/blob/raw/images/display_board2.jpg)
 
 - the second board contains ATmega644 MCU with necessary periphery: voltage regulator, light sensor, temperature sensor, buttons, programming connector, 32.7680kHz crystal, DCF77 receiver with ferrite core.
@@ -14,6 +33,7 @@ This clock consist of two boards:
 PCB are developed in Eagle CAD (see directory pcb):
 ![Mcu board layout](https://github.com/mkulesh/avrDigitalClock/blob/raw/images/mcu_board0.png)
 ![Display board layout](https://github.com/mkulesh/avrDigitalClock/blob/raw/images/display_board0.png)
+>>>>>>> 39b4fb50a0daddd45c954b52c8a6b69c98ebddfc
 
 ## Firmware
 The firmware is written in C++ in Atmel Studio 6.0 (see directory src). The main idea here is to collect low-level routines in an object-oriented library and develop the main logic of the application using objects that implements different hardware elements.
